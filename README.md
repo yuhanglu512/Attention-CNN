@@ -3,7 +3,7 @@ CNN integrates with Transformer attention, spatial attention to investigate Heus
 
 ## file and folder
 1. main.py, this is the main program to run
-2. untils, contains files to download data entry, transform poscar and create datasets
+2. utils, contains files to download data entry, transform poscar and create datasets
    1. down_all_heusler_1.py, download all heusler alloys from aflow, and all subcatgories are listed in folder_names.py
    2. folder_names.py, list all subcatgozies of Heusler alloys in aflow
    3. item2poscar_2.py, modify poscar in vasp version 4.6 to that of format in vasp version 5.4, and also transform cif to poscar
