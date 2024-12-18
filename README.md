@@ -10,7 +10,7 @@ CNN integrates with Transformer attention, spatial attention to investigate Heus
    4. dataset_construct_3.py, construct datasets function with data in datasets folder and save to elementtables_structure_new.py, etc
 3. models
    1. GCNmodel.py, contains all the function used or not used in Attention CNN, including spatial attention, transformer, multi-kernel, etc.
-4. visualazation, all the post process files are here
+4. visualization, all the post process files are here
    1. attention_show.ipynb, contains how to process and plot attention matrix, part of plotting attention matrix is moved to GCNmodel.py
    2. generate_datasets.py, search all the materials not in the datasets, use Attention CNN to predict and ranking, the final results of these ranking are written to folder results
    3. interface4vasp.py, this is a file to submit job in linux, it create necessary files to start first-principles calculation by vasp
