@@ -26,5 +26,8 @@ CNN integrates with Transformer attention, spatial attention to investigate Heus
 6. elementtables_structure_new.npy and elementtables_structure_full_heusler.npz, these two files are pre created datasets file by utils/dataset_construct_3.py
 7. datasets contains two many files, including poscar and entry of every items, so we upload its zip file, datasets.zip
 
+> some file may not appear in github because of its restrict to maximum size of file, all the program can be seen in https://cloud.tsinghua.edu.cn/d/e8e84ba9562345c28a3d/
+
 ## running
 direct run main.py. if you want to reconstruct datasets, unzip the datasets.zip to root folder and rerun, the datasets construct process may consume much time
+
