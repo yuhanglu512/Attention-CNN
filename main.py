@@ -15,16 +15,18 @@ from torch.utils.data import SequentialSampler
 
 
 if __name__=="__main__":
-    init_seed = 119
+    init_seed = 112
     torch.manual_seed(init_seed)
     torch.cuda.manual_seed(init_seed)
     torch.cuda.manual_seed_all(init_seed)
     torch.backends.cudnn.benchmark = False
     torch.backends.cudnn.deterministic = True
     is_train=False
+    task_all=['Mag','lattice_constant','E0','Ef','stability']
     #task=[['Mag','lattice_constant']]
     #task=['E0',['Ef','stability']]
-    task=[['Mag']]
+    task_id=0
+    task=[task_all[task_id]]
     #task=[['lattice_constant','E0'],['Ef','stability']]
 
     task_flatten=[]
@@ -42,18 +44,21 @@ if __name__=="__main__":
     
     if len(task)==1:
         if len(task_flatten)==1:
-            if task_flatten[0]=='Mag' or task_flatten[0]=='lattice_constant':
+            if task_flatten[0]=='Mag':
                 datasets=[elementtables_structure_new(task=task_flatten[0])]
-                model = attention_CNN(end_with_activation=True).to(device)
+                model = attention_CNN(block_num=[2,3,3],fc=[512,128,1],end_with_activation=True,is_vol=True).to(device)
+            elif task_flatten[0]=="lattice_constant":
+                datasets=[elementtables_structure_new(task=task_flatten[0])]
+                model = attention_CNN(block_num=[2,3,3],fc=[512,128,1],end_with_activation=True).to(device)
             elif task_flatten[0]=='E0':
                 datasets=[elementtables_structure_new(task=task_flatten[0])]
-                model = attention_CNN(end_with_activation=False).to(device)
+                model = attention_CNN(block_num=[2,3,3],fc=[512,128,1],end_with_activation=False).to(device)
             elif task_flatten[0]=='Ef':
                 datasets=[elementtables_structure_full_heusler()]
-                model = attention_CNN(end_with_activation=False).to(device)
+                model = attention_CNN(block_num=[2,3,3],fc=[512,128,1],end_with_activation=False).to(device)
             elif task_flatten[0]=='stability':
                 datasets=[elementtables_structure_full_heusler()]
-                model = attention_CNN(end_with_activation=True).to(device)
+                model = attention_CNN(block_num=[2,3,3],fc=[256,128,1],end_with_activation=True).to(device)
             else:
                 raise ValueError('task not found')
         elif task_flatten==['Mag','lattice_constant']:
@@ -72,7 +77,7 @@ if __name__=="__main__":
     #dataset=elementtables_structure_full_heusler()
     
     
-    ratio=[0.7,0.15,0.15]
+    ratio=[0.8,0.1,0.1]
     
     #if is_MTL:
     #    train_dataloader=torch.utils.data.DataLoader(TensorDataset(*mag_train), batch_size=batch_size_train,shuffle=True)
@@ -159,11 +164,11 @@ if __name__=="__main__":
     print('\ntime:')
     print(rear-front)
     
-    #model.load_state_dict(torch.load("model.pth"))
-    #train_class.plot_pca()
+    model.load_state_dict(torch.load("model.pth"))
     #train_class.plot_result()
-    train_class.plot_attention()
+    #train_class.plot_attention()
     #train_class.plot_pca()
+    #train_class.ROC()
 
     
     summary(model, input_size=(8,10,10))
